@@ -134,9 +134,6 @@ shadow-[0_20px_60px_rgba(0,0,0,0.25)]">
                     Create your account
                   </h2>
 
-                  <p className="text-gray-500 mb-4">
-                    Register your store with CodeTrack
-                  </p>
 
                   <button className="w-full flex items-center justify-center gap-3 border border-gray-200 rounded-xl py-3 hover:bg-gray-50 transition">
                     <img
@@ -192,7 +189,7 @@ shadow-[0_20px_60px_rgba(0,0,0,0.25)]">
           src="https://plus.unsplash.com/premium_photo-1720287601920-ee8c503af775?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="dashboard preview"
           className="w-full h-full object-cover rounded-2xl"
-          animate={{y: [0, -10, 0]}}
+          animate={{ y: [0, -10, 0] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         />
       </div>

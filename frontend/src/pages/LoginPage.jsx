@@ -42,7 +42,7 @@ export default function LoginPage() {
           {/* Logo */}
           <div className="flex items-center gap-2 mb-8">
             <div className="w-8 h-8 bg-black rounded-md"></div>
-            <span className="font-semibold text-lg">Osmo</span>
+            <span className="font-semibold text-lg">CodeTrack</span>
           </div>
 
           {/* Toggle */}
@@ -91,7 +91,7 @@ export default function LoginPage() {
                   </h2>
 
                   <p className="text-gray-500 mb-4">
-                    Welcome back to Osmo
+                    Welcome back to CodeTrack
                   </p>
 
                   <button type="button" className="w-full flex items-center justify-center gap-3 border border-gray-200 rounded-xl py-3 hover:bg-gray-50 transition">
@@ -150,9 +150,7 @@ export default function LoginPage() {
                     Create your account
                   </h2>
 
-                  <p className="text-gray-500 mb-4">
-                    Register your store with Osmo
-                  </p>
+                 
 
                   <button type="button" className="w-full flex items-center justify-center gap-3 border border-gray-200 rounded-xl py-3 hover:bg-gray-50 transition">
                     <img
@@ -176,7 +174,7 @@ export default function LoginPage() {
                   <input
                     type="text"
                     required
-                    placeholder="Store Name"
+                    placeholder="Username"
                     className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-lime-400"
                   />
 

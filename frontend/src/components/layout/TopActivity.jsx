@@ -25,21 +25,21 @@ export default function TopActivity() {
 
       {/* Header */}
       <div className="flex items-center gap-3 mb-4">
-        <h2 className="text-sm font-semibold text-white tracking-wider">
+        <h2 className="text-sm font-semibold text-slate-900 dark:text-white tracking-wider">
           INSIGHTS
         </h2>
-        <div className="flex-1 h-px bg-white/10"></div>
+        <div className="flex-1 h-px bg-slate-200 dark:bg-white/10"></div>
       </div>
 
       {/* Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
         {/* LEFT CARD - Topic Activity */}
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-5">
-          <h3 className="text-white font-semibold mb-1">
+        <div className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl p-5 transition-colors duration-300">
+          <h3 className="text-slate-900 dark:text-white font-semibold mb-1">
             Topic Activity
           </h3>
-          <p className="text-sm text-gray-400 mb-4">
+          <p className="text-sm text-slate-500 dark:text-gray-400 mb-4">
             Problems solved by topic
           </p>
 
@@ -48,13 +48,13 @@ export default function TopActivity() {
               <div key={index}>
                 
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="text-gray-300">{item.topic}</span>
-                  <span className="text-gray-400">{item.count}</span>
+                  <span className="text-slate-600 dark:text-gray-300">{item.topic}</span>
+                  <span className="text-slate-500 dark:text-gray-400">{item.count}</span>
                 </div>
 
-                <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+                <div className="w-full h-2 bg-slate-200 dark:bg-white/10 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full"
+                    className="h-full bg-linear-to-r from-blue-500 to-indigo-500 rounded-full"
                     style={{ width: `${item.percent}%` }}
                   ></div>
                 </div>
@@ -65,11 +65,11 @@ export default function TopActivity() {
         </div>
 
         {/* RIGHT CARD - Recent Battles */}
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-5">
-          <h3 className="text-white font-semibold mb-1">
+        <div className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl p-5 transition-colors duration-300">
+          <h3 className="text-slate-900 dark:text-white font-semibold mb-1">
             Recent Battles
           </h3>
-          <p className="text-sm text-gray-400 mb-4">
+          <p className="text-sm text-slate-500 dark:text-gray-400 mb-4">
             Last 4 battles • Win rate: {Math.round((wins / battles.length) * 100)}%
           </p>
 
@@ -77,13 +77,13 @@ export default function TopActivity() {
             {battles.map((battle, index) => (
               <div
                 key={index}
-                className="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-white/5 transition-all duration-200"
+                className="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 transition-all duration-200"
               >
                 <div className="flex flex-col">
-                  <span className="text-sm text-white">
+                  <span className="text-sm text-slate-900 dark:text-white">
                     {battle.opponent}
                   </span>
-                  <span className="text-xs text-gray-400">
+                  <span className="text-xs text-slate-500 dark:text-gray-400">
                     {battle.topic}
                   </span>
                 </div>
@@ -99,7 +99,7 @@ export default function TopActivity() {
                     {battle.result}
                   </span>
 
-                  <ExternalLink size={14} className="text-gray-500" />
+                  <ExternalLink size={14} className="text-slate-500 dark:text-gray-400" />
                 </div>
               </div>
             ))}

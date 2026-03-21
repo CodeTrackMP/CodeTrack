@@ -41,22 +41,22 @@ export default function StatsOverview() {
         return (
           <div
             key={index}
-            className="bg-white/5 border border-white/10 rounded-2xl p-5 shadow-sm
-            hover:bg-white/10 hover:-translate-y-1 transition-all duration-200"
+            className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl p-5 shadow-sm
+            hover:bg-slate-100 dark:hover:bg-white/10 hover:-translate-y-1 transition-all duration-200"
           >
             {/* Top Row */}
             <div className="flex items-center justify-between mb-4">
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-slate-500 dark:text-gray-400">
                 {stat.title}
               </p>
 
-              <div className="p-2 rounded-lg bg-white/5">
-                <Icon size={18} className="text-gray-300" />
+              <div className="p-2 rounded-lg bg-slate-100 dark:bg-white/5">
+                <Icon size={18} className="text-slate-600 dark:text-gray-300" />
               </div>
             </div>
 
             {/* Value */}
-            <h3 className="text-3xl font-semibold text-white mb-2">
+            <h3 className="text-3xl font-semibold text-slate-900 dark:text-white mb-2">
               {stat.value}
             </h3>
 

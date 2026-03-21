@@ -33,13 +33,13 @@ export default function PlatformSection() {
     const mediumPercent = (platform.medium / total) * 100;
     const hardPercent = (platform.hard / total) * 100;
 
-    const colorClasses = {
-      orange: "bg-orange-500",
-      blue: "bg-blue-500"
+    const badgeClasses = {
+      orange: "bg-orange-500/20 text-orange-400",
+      blue: "bg-blue-500/20 text-blue-400"
     };
 
     return (
-      <div className="bg-[#0b0f19] border border-white/10 rounded-2xl p-6 shadow-lg">
+      <div className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl p-6 shadow-lg transition-colors duration-300">
 
         {/* HEADER */}
         <div className="flex items-center justify-between mb-6">
@@ -47,34 +47,34 @@ export default function PlatformSection() {
             <img
               src={platform.logo}
               alt={platform.name}
-              className="w-12 h-12 rounded-xl object-contain bg-white/10 p-1"
+              className="w-12 h-12 rounded-xl object-contain bg-slate-100 dark:bg-white/10 p-1"
             />
 
             <div>
-              <h2 className="text-white text-lg font-semibold">
+              <h2 className="text-slate-900 dark:text-white text-lg font-semibold">
                 {platform.name}
               </h2>
-              <span className={`text-xs bg-${platform.color}-500/20 text-${platform.color}-400 px-2 py-1 rounded-md`}>
+              <span className={`text-xs px-2 py-1 rounded-md ${badgeClasses[platform.color]}`}>
                 Platform
               </span>
             </div>
           </div>
 
-          <ExternalLink className="text-gray-400 cursor-pointer" size={18} />
+          <ExternalLink className="text-slate-500 dark:text-gray-400 cursor-pointer" size={18} />
         </div>
 
         {/* STATS */}
         <div className="grid grid-cols-2 gap-4 mb-6">
-          <div className="bg-white/5 rounded-xl p-4">
-            <p className="text-sm text-gray-400">Total Solved</p>
-            <h3 className="text-2xl font-semibold text-white">
+          <div className="bg-slate-100 dark:bg-white/5 rounded-xl p-4">
+            <p className="text-sm text-slate-500 dark:text-gray-400">Total Solved</p>
+            <h3 className="text-2xl font-semibold text-slate-900 dark:text-white">
               {platform.solved}
             </h3>
           </div>
 
-          <div className="bg-white/5 rounded-xl p-4">
-            <p className="text-sm text-gray-400">Streak</p>
-            <h3 className="text-2xl font-semibold text-white">
+          <div className="bg-slate-100 dark:bg-white/5 rounded-xl p-4">
+            <p className="text-sm text-slate-500 dark:text-gray-400">Streak</p>
+            <h3 className="text-2xl font-semibold text-slate-900 dark:text-white">
               {platform.streak} days
             </h3>
           </div>
@@ -82,11 +82,11 @@ export default function PlatformSection() {
 
         {/* DIFFICULTY BAR */}
         <div className="mb-6">
-          <p className="text-sm text-gray-400 mb-2">
+          <p className="text-sm text-slate-500 dark:text-gray-400 mb-2">
             Difficulty Distribution
           </p>
 
-          <div className="w-full h-3 bg-white/10 rounded-full overflow-hidden flex">
+          <div className="w-full h-3 bg-slate-200 dark:bg-white/10 rounded-full overflow-hidden flex">
             <div
               className="bg-green-500"
               style={{ width: `${easyPercent}%` }}
@@ -110,7 +110,7 @@ export default function PlatformSection() {
 
         {/* TOPICS */}
         <div className="mb-6">
-          <p className="text-sm text-gray-400 mb-2">
+          <p className="text-sm text-slate-500 dark:text-gray-400 mb-2">
             Topics Practiced
           </p>
 
@@ -124,7 +124,7 @@ export default function PlatformSection() {
               </span>
             ))}
 
-            <span className="bg-white/10 text-gray-300 px-3 py-1 rounded-lg text-xs">
+            <span className="bg-slate-200 dark:bg-white/10 text-slate-600 dark:text-gray-300 px-3 py-1 rounded-lg text-xs">
               +2 more
             </span>
           </div>

@@ -38,7 +38,7 @@ export default function Sidebar() {
     ];
 
     return (
-        <div className="h-screen w-60 bg-[#0b0f19] border-r border-white/10 flex flex-col justify-between">
+        <div className="h-screen w-60 bg-slate-50 dark:bg-[#0b0f19] border-r border-slate-200 dark:border-white/10 flex flex-col justify-between transition-colors duration-300">
 
             {/* TOP */}
             <div>
@@ -47,7 +47,7 @@ export default function Sidebar() {
                     <div className="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">
                         C
                     </div>
-                    <span className="text-white font-semibold text-lg">
+                    <span className="text-slate-900 dark:text-white font-semibold text-lg">
                         CodeTrack
                     </span>
                 </div>
@@ -57,7 +57,7 @@ export default function Sidebar() {
 
                     {sections.map((section) => (
                         <div key={section.label}>
-                            <p className="text-xs uppercase text-gray-500 px-3 mb-2">
+                            <p className="text-xs uppercase text-slate-500 dark:text-gray-500 px-3 mb-2">
                                 {section.label}
                             </p>
 
@@ -73,7 +73,7 @@ export default function Sidebar() {
                                             className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg text-sm transition-all duration-200
                       ${isActive
                                                     ? "bg-blue-600 text-white shadow-[0_0_10px_rgba(59,130,246,0.5)] border-l-4 border-blue-400"
-                                                    : "text-gray-400 hover:bg-white/5 hover:text-white"
+                                                    : "text-slate-600 dark:text-gray-400 hover:bg-slate-200 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white"
                                                 }`}
                                         >
                                             <Icon size={18} />
@@ -89,7 +89,7 @@ export default function Sidebar() {
             </div>
 
             {/* BOTTOM */}
-            <div className="px-6 py-4 text-xs text-gray-500 opacity-60">
+            <div className="px-6 py-4 text-xs text-slate-500 dark:text-gray-500 opacity-60">
                 © 2026 CodeTrack
             </div>
 

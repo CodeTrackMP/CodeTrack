@@ -47,14 +47,14 @@ export default function ActivityHeatmap() {
   ];
 
   return (
-    <div className="mt-6 bg-white/5 border border-white/10 rounded-2xl p-5">
+    <div className="mt-6 bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl p-5 transition-colors duration-300">
 
       {/* Header */}
       <div className="mb-4">
-        <h2 className="text-lg font-semibold text-white">
+        <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
           Coding Activity
         </h2>
-        <p className="text-sm text-gray-400">
+        <p className="text-sm text-slate-500 dark:text-gray-400">
           GitHub-style contribution graph • Hover a day to see details
         </p>
       </div>
@@ -63,7 +63,7 @@ export default function ActivityHeatmap() {
       <div className="overflow-x-auto">
 
         {/* Month labels */}
-        <div className="flex ml-8 mb-2 text-xs text-gray-400">
+        <div className="flex ml-8 mb-2 text-xs text-slate-500 dark:text-gray-400">
           {months.map((m, i) => (
             <div key={i} className="flex-1 text-center">
               {m}
@@ -74,7 +74,7 @@ export default function ActivityHeatmap() {
         <div className="flex">
 
           {/* Day labels */}
-          <div className="flex flex-col justify-between mr-2 text-xs text-gray-500">
+          <div className="flex flex-col justify-between mr-2 text-xs text-slate-500 dark:text-gray-400">
             <span>Mon</span>
             <span>Wed</span>
             <span>Fri</span>
@@ -105,7 +105,7 @@ export default function ActivityHeatmap() {
       </div>
 
       {/* Legend */}
-      <div className="flex items-center gap-2 mt-4 text-xs text-gray-400">
+      <div className="flex items-center gap-2 mt-4 text-xs text-slate-500 dark:text-gray-400">
         <span>Less</span>
         <div className="flex gap-1">
           <div className="w-3 h-3 bg-gray-700 rounded-sm"></div>

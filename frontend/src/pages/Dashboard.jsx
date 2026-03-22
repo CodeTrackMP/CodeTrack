@@ -5,6 +5,7 @@ import StatsOverview from "../components/layout/StatsOverview";
 import PlatformSection from "../components/layout/PlatformSection";
 import ActivityHeatmap from "../components/layout/ActivityHeatmap";
 import TopActivity from "../components/layout/TopActivity";
+import ReminderCard from "../components/ReminderCard";
 
 export default function Dashboard() {
     const [theme, setTheme] = useState(() => {
@@ -34,6 +35,7 @@ export default function Dashboard() {
                     <h1 className="mt-6 text-slate-900 dark:text-white">Dashboard Content</h1>
                     <StatsOverview />
                     <PlatformSection />
+                    <ReminderCard />
                     <ActivityHeatmap/>
                     <TopActivity/>
                     

@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import Dashboard from "./pages/Dashboard"; // example existing route
+import Reminders from "./pages/Reminders";
 
 export default function App() {
   return (
@@ -12,6 +13,7 @@ export default function App() {
 
         {/* Existing Routes (unchanged) */}
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/reminders" element={<Reminders />} />
 
       </Routes>
     </Router>

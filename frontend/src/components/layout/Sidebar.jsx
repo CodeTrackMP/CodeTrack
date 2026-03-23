@@ -1,36 +1,34 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
     LayoutDashboard,
-    BarChart,
-    Flame,
     Swords,
-    Trophy,
     User,
-    Settings
+    Settings,
+    Bell
 } from "lucide-react";
 
 export default function Sidebar() {
+    const navigate = useNavigate();
     const [active, setActive] = useState("Dashboard");
 
     const sections = [
         {
             label: "TRACKING",
             items: [
-                { name: "Dashboard", icon: LayoutDashboard },
-                { name: "Analytics", icon: BarChart },
-                { name: "Streak Tracker", icon: Flame }
+                { name: "Dashboard", icon: LayoutDashboard }
             ]
         },
         {
             label: "SOCIAL",
             items: [
-                { name: "Battle Arena", icon: Swords },
-                { name: "Leaderboard", icon: Trophy }
+                { name: "Battle Arena", icon: Swords }
             ]
         },
         {
             label: "ACCOUNT",
             items: [
+                { name: "Reminders", icon: Bell },
                 { name: "Profile", icon: User },
                 { name: "Settings", icon: Settings }
             ]
@@ -69,7 +67,19 @@ export default function Sidebar() {
                                     return (
                                         <button
                                             key={item.name}
-                                            onClick={() => setActive(item.name)}
+                                            onClick={() => {
+                                                setActive(item.name);
+                                                const routes = {
+                                                    "Dashboard": "/dashboard",
+                                                    "Battle Arena": "/battle",
+                                                    "Profile": "/profile",
+                                                    "Settings": "/settings",
+                                                    "Reminders": "/reminders"
+                                                };
+                                                if (routes[item.name]) {
+                                                    navigate(routes[item.name]);
+                                                }
+                                            }}
                                             className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg text-sm transition-all duration-200
                       ${isActive
                                                     ? "bg-blue-600 text-white shadow-[0_0_10px_rgba(59,130,246,0.5)] border-l-4 border-blue-400"

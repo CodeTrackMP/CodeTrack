@@ -5,7 +5,7 @@ import StatsOverview from "../components/layout/StatsOverview";
 import PlatformSection from "../components/layout/PlatformSection";
 import ActivityHeatmap from "../components/layout/ActivityHeatmap";
 import TopActivity from "../components/layout/TopActivity";
-import ReminderCard from "../components/ReminderCard";
+import ReminderCard from "../components/layout/ReminderCard";
 
 export default function Dashboard() {
     const [theme, setTheme] = useState(() => {

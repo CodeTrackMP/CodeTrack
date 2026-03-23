@@ -54,9 +54,7 @@ export default function ActivityHeatmap() {
         <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
           Coding Activity
         </h2>
-        <p className="text-sm text-slate-500 dark:text-gray-400">
-          GitHub-style contribution graph • Hover a day to see details
-        </p>
+        
       </div>
 
       {/* Heatmap */}

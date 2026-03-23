@@ -26,9 +26,7 @@ export default function LoginPage() {
   // ✅ Handle submit (Login / Signup)
   const handleSubmit = (e) => {
     e.preventDefault();
-   navigate("/connect-platform", {
-  state: { username: email } // or storeName if you prefer
-});
+    navigate("/dashboard");
   };
 
   return (

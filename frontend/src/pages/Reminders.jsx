@@ -17,6 +17,12 @@ const formatDueDate = (dateString) => {
   return date.toLocaleDateString() + " " + date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 };
 
+const createDummyReminder = () => ({
+  id: 1,
+  task: "Streak",
+  dueDate: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
+});
+
 export default function Reminders() {
   const [theme, setTheme] = useState(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -45,7 +51,13 @@ export default function Reminders() {
     const saved = localStorage.getItem("reminders");
     if (saved) {
       const parsed = JSON.parse(saved);
-      setReminders(parsed);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        setReminders(parsed);
+      } else {
+        setReminders([createDummyReminder()]);
+      }
+    } else {
+      setReminders([createDummyReminder()]);
     }
   }, []);
 

@@ -26,7 +26,7 @@ export default function LoginPage() {
   // ✅ Handle submit (Login / Signup)
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/dashboard");
+    navigate("/connection");
   };
 
   return (

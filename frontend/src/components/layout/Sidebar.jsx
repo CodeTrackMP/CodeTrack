@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
     LayoutDashboard,
     Swords,
@@ -10,7 +10,38 @@ import {
 
 export default function Sidebar() {
     const navigate = useNavigate();
-    const [active, setActive] = useState("Dashboard");
+    const location = useLocation();
+
+    const getReminderCount = () => {
+        try {
+            const saved = localStorage.getItem("reminders");
+            if (!saved) return 0;
+            const parsed = JSON.parse(saved);
+            return Array.isArray(parsed) ? parsed.length : 0;
+        } catch {
+            return 0;
+        }
+    };
+
+    const reminderCount = getReminderCount();
+
+    const routeByName = {
+        "Dashboard": "/dashboard",
+        "Battle Arena": "/battle",
+        "Profile": "/profile",
+        "Settings": "/settings",
+        "Reminders": "/reminders"
+    };
+
+    const activeByPath = {
+        "/dashboard": "Dashboard",
+        "/battle": "Battle Arena",
+        "/profile": "Profile",
+        "/settings": "Settings",
+        "/reminders": "Reminders"
+    };
+
+    const active = activeByPath[location.pathname] || "Dashboard";
 
     const sections = [
         {
@@ -68,26 +99,30 @@ export default function Sidebar() {
                                         <button
                                             key={item.name}
                                             onClick={() => {
-                                                setActive(item.name);
-                                                const routes = {
-                                                    "Dashboard": "/dashboard",
-                                                    "Battle Arena": "/battle",
-                                                    "Profile": "/profile",
-                                                    "Settings": "/settings",
-                                                    "Reminders": "/reminders"
-                                                };
-                                                if (routes[item.name]) {
-                                                    navigate(routes[item.name]);
+                                                const route = routeByName[item.name];
+                                                if (route) {
+                                                    navigate(route);
                                                 }
                                             }}
-                                            className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg text-sm transition-all duration-200
+                                            className={`w-full flex items-center justify-between px-4 py-2 rounded-lg text-sm transition-all duration-200
                       ${isActive
                                                     ? "bg-blue-600 text-white shadow-[0_0_10px_rgba(59,130,246,0.5)] border-l-4 border-blue-400"
                                                     : "text-slate-600 dark:text-gray-400 hover:bg-slate-200 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white"
                                                 }`}
                                         >
-                                            <Icon size={18} />
-                                            <span>{item.name}</span>
+                                            <span className="flex items-center gap-3">
+                                                <Icon size={18} />
+                                                <span>{item.name}</span>
+                                            </span>
+                                            {item.name === "Reminders" && reminderCount > 0 && (
+                                                <span className={`min-w-5 h-5 px-1.5 rounded-full text-[11px] font-semibold flex items-center justify-center ${
+                                                    isActive
+                                                        ? "bg-white/20 text-white"
+                                                        : "bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300"
+                                                }`}>
+                                                    {reminderCount > 99 ? "99+" : reminderCount}
+                                                </span>
+                                            )}
                                         </button>
                                     );
                                 })}

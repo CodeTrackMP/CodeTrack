@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Search, Bell, Sun, Moon } from "lucide-react";
 
+const AVATAR_URL = "https://i.pravatar.cc/80?img=12";
+
 export default function Navbar() {
     const [isDark, setIsDark] = useState(() => {
         const saved = localStorage.getItem("theme");
@@ -57,7 +59,7 @@ export default function Navbar() {
                 {/* User Profile */}
                 <div className="flex items-center gap-3 ml-2">
                     <img
-                        src="https://i.pravatar.cc/40"
+                        src={AVATAR_URL}
                         alt="avatar"
                         className="w-9 h-9 rounded-full object-cover"
                     />
@@ -66,9 +68,7 @@ export default function Navbar() {
                         <span className="text-sm text-slate-900 dark:text-white font-medium">
                             Alex Chen
                         </span>
-                        <span className="text-xs text-slate-500 dark:text-gray-400">
-                            Pro Member
-                        </span>
+                        
                     </div>
                 </div>
             </div>

@@ -1,15 +1,3 @@
-CREATE TABLE platforms (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(50) NOT NULL UNIQUE,
-    base_url VARCHAR(255) NOT NULL,
-    is_active BOOLEAN NOT NULL DEFAULT TRUE,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
-INSERT INTO platforms (name, base_url) VALUES
-    ('CODEFORCES', 'https://codeforces.com'),
-    ('LEETCODE', 'https://leetcode.com');
-
 CREATE TYPE user_role AS ENUM ('STUDENT', 'ADMIN');
 
 CREATE TABLE users (

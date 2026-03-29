@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { CodeXml } from "lucide-react";
 
 export default function LoginPage() {
   const [isSignup, setIsSignup] = useState(false);
@@ -90,7 +91,9 @@ export default function LoginPage() {
 
           {/* Logo */}
           <div className="flex items-center gap-2 mb-8">
-            <div className="w-8 h-8 bg-slate-900 dark:bg-white rounded-md transition-colors duration-300"></div>
+            <div className="w-8 h-8 rounded-md bg-slate-900 dark:bg-white transition-colors duration-300 flex items-center justify-center">
+              <CodeXml size={16} className="text-white dark:text-slate-900" strokeWidth={2.3} />
+            </div>
             <span className="font-semibold text-lg text-slate-900 dark:text-white">CodeTrack</span>
           </div>
 

@@ -5,7 +5,8 @@ import {
     Swords,
     User,
     Settings,
-    Bell
+    Bell,
+    CodeXml
 } from "lucide-react";
 
 export default function Sidebar() {
@@ -73,8 +74,8 @@ export default function Sidebar() {
             <div>
                 {/* Branding */}
                 <div className="flex items-center gap-3 px-6 py-6">
-                    <div className="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">
-                        C
+                    <div className="w-9 h-9 bg-blue-600 rounded-lg flex items-center justify-center text-white">
+                        <CodeXml size={18} strokeWidth={2.2} />
                     </div>
                     <span className="text-slate-900 dark:text-white font-semibold text-lg">
                         CodeTrack

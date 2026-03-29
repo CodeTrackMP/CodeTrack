@@ -36,6 +36,7 @@ export default function Reminders() {
     dueDate: ""
   });
   const [notification, setNotification] = useState(null);
+  const [formError, setFormError] = useState("");
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
@@ -50,10 +51,14 @@ export default function Reminders() {
   useEffect(() => {
     const saved = localStorage.getItem("reminders");
     if (saved) {
-      const parsed = JSON.parse(saved);
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        setReminders(parsed);
-      } else {
+      try {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setReminders(parsed);
+        } else {
+          setReminders([createDummyReminder()]);
+        }
+      } catch {
         setReminders([createDummyReminder()]);
       }
     } else {
@@ -69,19 +74,21 @@ export default function Reminders() {
   // Set timeouts for notifications
   useEffect(() => {
     const now = new Date();
+    const timeoutIds = [];
+
     reminders.forEach(reminder => {
       const dueTime = new Date(reminder.dueDate);
       if (dueTime > now) {
         const timeoutId = setTimeout(() => {
           showNotification(reminder);
         }, dueTime - now);
-        reminder.timeoutId = timeoutId;
+        timeoutIds.push(timeoutId);
       }
     });
 
     return () => {
-      reminders.forEach(reminder => {
-        if (reminder.timeoutId) clearTimeout(reminder.timeoutId);
+      timeoutIds.forEach((timeoutId) => {
+        clearTimeout(timeoutId);
       });
     };
   }, [reminders]);
@@ -95,15 +102,31 @@ export default function Reminders() {
   };
 
   const addReminder = () => {
-    if (!formData.dueDate) return;
+    if (!formData.dueDate) {
+      setFormError("Please choose a due date and time.");
+      return;
+    }
+
+    const dueDate = new Date(formData.dueDate);
+    if (Number.isNaN(dueDate.getTime())) {
+      setFormError("Invalid date. Please pick a valid date and time.");
+      return;
+    }
+
+    if (dueDate <= new Date()) {
+      setFormError("Due date must be in the future.");
+      return;
+    }
 
     const newReminder = {
       id: Date.now(),
-      ...formData
+      task: formData.task,
+      dueDate: dueDate.toISOString()
     };
 
-    setReminders([...reminders, newReminder]);
+    setReminders((prev) => [...prev, newReminder]);
     setFormData({ task: "Streak", dueDate: "" });
+    setFormError("");
     setShowAddForm(false);
   };
 
@@ -178,10 +201,16 @@ export default function Reminders() {
                   <input
                     type="datetime-local"
                     value={formData.dueDate}
-                    onChange={(e) => setFormData({...formData, dueDate: e.target.value})}
+                    onChange={(e) => {
+                      setFormData({...formData, dueDate: e.target.value});
+                      if (formError) setFormError("");
+                    }}
                     className="w-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg px-3 py-2 text-sm"
                   />
                 </div>
+                {formError && (
+                  <p className="mb-3 text-xs text-red-600 dark:text-red-400">{formError}</p>
+                )}
                 <div className="flex gap-2">
                   <button
                     onClick={addReminder}

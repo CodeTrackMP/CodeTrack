@@ -1,10 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
   const [isSignup, setIsSignup] = useState(false);
+  const [loginForm, setLoginForm] = useState({
+    username: "",
+    email: "",
+    password: ""
+  });
+  const [signupForm, setSignupForm] = useState({
+    username: "",
+    email: "",
+    password: ""
+  });
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme || "dark";
+  });
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("theme", theme);
+  }, [theme]);
 
   const slideVariants = {
     initial: (direction) => ({
@@ -26,33 +45,63 @@ export default function LoginPage() {
   // ✅ Handle submit (Login / Signup)
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const enteredUsername = isSignup
+      ? signupForm.username.trim()
+      : loginForm.username.trim();
+    if (enteredUsername) {
+      localStorage.setItem("username", enteredUsername);
+    }
+
     navigate("/connection");
   };
 
+  const handleThemeToggle = () => {
+    setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
+  };
+
+  const handleLoginChange = (field, value) => {
+    setLoginForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleSignupChange = (field, value) => {
+    setSignupForm((prev) => ({ ...prev, [field]: value }));
+  };
+
   return (
-    <div className="min-h-screen flex bg-gray-100">
+    <div className="relative min-h-screen flex bg-slate-100 text-slate-900 dark:bg-[#05070d] dark:text-slate-100 transition-colors duration-300">
+
+      <button
+        type="button"
+        onClick={handleThemeToggle}
+        aria-label="Toggle theme"
+        className="absolute right-4 top-4 z-20 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-700 shadow-sm transition-colors hover:bg-slate-100 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:bg-white/10"
+      >
+        {theme === "dark" ? "Light" : "Dark"}
+      </button>
 
       {/* LEFT SIDE - FORM */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
         <div className="w-full max-w-md p-10 rounded-2xl overflow-hidden
-        bg-white/60 backdrop-blur-xl
-        border border-white/40
-        shadow-[0_20px_60px_rgba(0,0,0,0.25)]">
+        bg-white border border-slate-200 shadow-sm
+        dark:bg-white/5 dark:backdrop-blur-xl
+        dark:border-white/10
+        dark:shadow-[0_20px_60px_rgba(0,0,0,0.35)] transition-colors duration-300">
 
           {/* Logo */}
           <div className="flex items-center gap-2 mb-8">
-            <div className="w-8 h-8 bg-black rounded-md"></div>
-            <span className="font-semibold text-lg">CodeTrack</span>
+            <div className="w-8 h-8 bg-slate-900 dark:bg-white rounded-md transition-colors duration-300"></div>
+            <span className="font-semibold text-lg text-slate-900 dark:text-white">CodeTrack</span>
           </div>
 
           {/* Toggle */}
-          <div className="text-sm text-gray-500 mb-6">
+          <div className="text-sm text-slate-500 dark:text-gray-400 mb-6">
             {isSignup ? (
               <>
                 Already have an account?{" "}
                 <button
                   onClick={() => setIsSignup(false)}
-                  className="text-lime-500 font-medium hover:underline"
+                  className="text-blue-600 dark:text-blue-400 font-medium hover:underline"
                 >
                   Login
                 </button>
@@ -62,7 +111,7 @@ export default function LoginPage() {
                 Don't have an account?{" "}
                 <button
                   onClick={() => setIsSignup(true)}
-                  className="text-lime-500 font-medium hover:underline"
+                  className="text-blue-600 dark:text-blue-400 font-medium hover:underline"
                 >
                   Sign up
                 </button>
@@ -90,11 +139,11 @@ export default function LoginPage() {
                     Login to your account
                   </h2>
 
-                  <p className="text-gray-500 mb-4">
+                  <p className="text-slate-500 dark:text-gray-400 mb-4">
                     Welcome back to CodeTrack
                   </p>
 
-                  <button type="button" className="w-full flex items-center justify-center gap-3 border border-gray-200 rounded-xl py-3 hover:bg-gray-50 transition">
+                  <button type="button" className="w-full flex items-center justify-center gap-3 border border-slate-200 bg-white rounded-xl py-3 hover:bg-slate-50 transition-colors dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
                     <img
                       src="https://www.svgrepo.com/show/475656/google-color.svg"
                       alt="google"
@@ -106,30 +155,43 @@ export default function LoginPage() {
                   </button>
 
                   <div className="flex items-center gap-3 my-6">
-                    <div className="flex-1 h-px bg-gray-200"></div>
-                    <span className="text-gray-400 text-sm">
+                    <div className="flex-1 h-px bg-slate-200 dark:bg-white/10"></div>
+                    <span className="text-slate-400 dark:text-gray-500 text-sm">
                       or Login with Email
                     </span>
-                    <div className="flex-1 h-px bg-gray-200"></div>
+                    <div className="flex-1 h-px bg-slate-200 dark:bg-white/10"></div>
                   </div>
+
+                  <input
+                    type="text"
+                    required
+                    placeholder="Username"
+                    value={loginForm.username}
+                    onChange={(e) => handleLoginChange("username", e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-white/10 dark:bg-white/5 dark:text-white"
+                  />
 
                   <input
                     type="email"
                     required
                     placeholder="Email"
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-lime-400"
+                    value={loginForm.email}
+                    onChange={(e) => handleLoginChange("email", e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-white/10 dark:bg-white/5 dark:text-white"
                   />
 
                   <input
                     type="password"
                     required
                     placeholder="Password"
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-lime-400"
+                    value={loginForm.password}
+                    onChange={(e) => handleLoginChange("password", e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-white/10 dark:bg-white/5 dark:text-white"
                   />
 
                   <button
                     type="submit"
-                    className="w-full bg-lime-400 hover:bg-lime-500 transition text-black font-semibold py-3 rounded-xl shadow-md"
+                    className="w-full bg-blue-600 hover:bg-blue-500 transition-colors text-white font-semibold py-3 rounded-xl shadow-sm"
                   >
                     Login
                   </button>
@@ -152,7 +214,7 @@ export default function LoginPage() {
 
                  
 
-                  <button type="button" className="w-full flex items-center justify-center gap-3 border border-gray-200 rounded-xl py-3 hover:bg-gray-50 transition">
+                  <button type="button" className="w-full flex items-center justify-center gap-3 border border-slate-200 bg-white rounded-xl py-3 hover:bg-slate-50 transition-colors dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10">
                     <img
                       src="https://www.svgrepo.com/show/475656/google-color.svg"
                       alt="google"
@@ -164,37 +226,43 @@ export default function LoginPage() {
                   </button>
 
                   <div className="flex items-center gap-3 my-6">
-                    <div className="flex-1 h-px bg-gray-200"></div>
-                    <span className="text-gray-400 text-sm">
+                    <div className="flex-1 h-px bg-slate-200 dark:bg-white/10"></div>
+                    <span className="text-slate-400 dark:text-gray-500 text-sm">
                       or Signup with Email
                     </span>
-                    <div className="flex-1 h-px bg-gray-200"></div>
+                    <div className="flex-1 h-px bg-slate-200 dark:bg-white/10"></div>
                   </div>
 
                   <input
                     type="text"
                     required
                     placeholder="Username"
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-lime-400"
+                    value={signupForm.username}
+                    onChange={(e) => handleSignupChange("username", e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-white/10 dark:bg-white/5 dark:text-white"
                   />
 
                   <input
                     type="email"
                     required
                     placeholder="Email"
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-lime-400"
+                    value={signupForm.email}
+                    onChange={(e) => handleSignupChange("email", e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-white/10 dark:bg-white/5 dark:text-white"
                   />
 
                   <input
                     type="password"
                     required
                     placeholder="Password"
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-lime-400"
+                    value={signupForm.password}
+                    onChange={(e) => handleSignupChange("password", e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-white/10 dark:bg-white/5 dark:text-white"
                   />
 
                   <button
                     type="submit"
-                    className="w-full bg-lime-400 hover:bg-lime-500 transition text-black font-semibold py-3 rounded-xl shadow-md"
+                    className="w-full bg-blue-600 hover:bg-blue-500 transition-colors text-white font-semibold py-3 rounded-xl shadow-sm"
                   >
                     Register Now
                   </button>
@@ -210,8 +278,8 @@ export default function LoginPage() {
       {/* RIGHT SIDE - IMAGE */}
       <div className="hidden lg:flex w-1/2 p-6 items-center justify-center relative overflow-hidden">
 
-        <div className="absolute w-72 h-72 bg-lime-400 rounded-full blur-3xl opacity-30 top-10 right-20"></div>
-        <div className="absolute w-96 h-96 bg-gradient-to-br from-blue-900 to-slate-800 rounded-full blur-3xl opacity-30 bottom-10 left-10"></div>
+        <div className="absolute w-72 h-72 bg-blue-500 rounded-full blur-3xl opacity-20 top-10 right-20"></div>
+        <div className="absolute w-96 h-96 bg-linear-to-br from-slate-400 to-blue-300 dark:from-blue-900 dark:to-slate-800 rounded-full blur-3xl opacity-25 dark:opacity-30 bottom-10 left-10 transition-colors duration-300"></div>
 
         <motion.img
           src="https://images.unsplash.com/photo-1551288049-bebda4e38f71"

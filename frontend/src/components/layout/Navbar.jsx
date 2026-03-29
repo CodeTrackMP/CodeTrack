@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Search, Bell, Sun, Moon } from "lucide-react";
-
-const AVATAR_URL = "https://i.pravatar.cc/80?img=12";
+import { Search, Bell, Sun, Moon, Image } from "lucide-react";
 
 export default function Navbar() {
     const [isDark, setIsDark] = useState(() => {
@@ -9,11 +7,28 @@ export default function Navbar() {
         if (saved) return saved === "dark";
         return document.documentElement.classList.contains("dark");
     });
+    const [displayName, setDisplayName] = useState(() => {
+        const savedName = localStorage.getItem("username");
+        return savedName || "User";
+    });
+    const [avatarUrl, setAvatarUrl] = useState(() => {
+        return localStorage.getItem("profileAvatar") || "";
+    });
 
     useEffect(() => {
         document.documentElement.classList.toggle("dark", isDark);
         localStorage.setItem("theme", isDark ? "dark" : "light");
     }, [isDark]);
+
+    useEffect(() => {
+        const savedName = localStorage.getItem("username");
+        if (savedName) {
+            setDisplayName(savedName);
+        }
+
+        const savedAvatar = localStorage.getItem("profileAvatar") || "";
+        setAvatarUrl(savedAvatar);
+    }, []);
 
     const handleThemeToggle = () => {
         setIsDark((prev) => !prev);
@@ -58,15 +73,21 @@ export default function Navbar() {
 
                 {/* User Profile */}
                 <div className="flex items-center gap-3 ml-2">
-                    <img
-                        src={AVATAR_URL}
-                        alt="avatar"
-                        className="w-9 h-9 rounded-full object-cover"
-                    />
+                    {avatarUrl ? (
+                        <img
+                            src={avatarUrl}
+                            alt="avatar"
+                            className="w-9 h-9 rounded-full object-cover"
+                        />
+                    ) : (
+                        <div className="w-9 h-9 rounded-full border border-slate-300 dark:border-white/15 bg-slate-200 dark:bg-white/5 flex items-center justify-center">
+                            <Image size={14} className="text-slate-500 dark:text-gray-400" />
+                        </div>
+                    )}
 
                     <div className="hidden sm:flex flex-col leading-tight">
                         <span className="text-sm text-slate-900 dark:text-white font-medium">
-                            Alex Chen
+                            {displayName}
                         </span>
                         
                     </div>

@@ -20,7 +20,7 @@ export default function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/reminders" element={<Reminders />} />
         <Route path='/profile' element={<ProfilePage />} />
-        <Route path="/challenges" element={<ChallengesPage />} />
+        <Route path="/battle" element={<ChallengesPage />} />
        
 
       </Routes>

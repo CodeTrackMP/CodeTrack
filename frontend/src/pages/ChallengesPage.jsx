@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ChallengeList from "../components/ChallengeList";
 import ChallengeDetails from "../components/ChallengeDetails";
 import CreateChallengeModal from "../components/CreateChallengeModal";
@@ -9,7 +9,10 @@ export default function ChallengesPage() {
   const [selectedChallenge, setSelectedChallenge] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [challenges, setChallenges] = useState([
+  const [challenges, setChallenges] = useState(()=> {
+    const saved = localStorage.getItem("challenges");
+    if (saved) return JSON.parse(saved);
+    return [
     {
       id: 1,
       title: "Weekly Battle",
@@ -23,7 +26,12 @@ export default function ChallengesPage() {
         { username: "alex", status: "INVITED", problems_solved: 0, score: 0 }
       ]
     }
-  ]);
+  ];
+  });
+
+  useEffect(() => {
+    localStorage.setItem("challenges", JSON.stringify(challenges));
+  }, [challenges]);
 
   return (
     <div className="flex min-h-screen bg-slate-100 text-slate-900 dark:bg-[#05070d] dark:text-slate-100 transition-colors duration-300">

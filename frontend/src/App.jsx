@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard"; // example existing route
 import Reminders from "./pages/Reminders";
 import ConnectionPage from "./pages/ConnectionPage";
 import ProfilePage from "./pages/ProfilPage";
+import BattleArenaPage from "./pages/BattleArenaPage";
 
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/reminders" element={<Reminders />} />
         <Route path='/profile' element={<ProfilePage />} />
+        <Route path="/battle" element={<BattleArenaPage />} />
        
 
       </Routes>

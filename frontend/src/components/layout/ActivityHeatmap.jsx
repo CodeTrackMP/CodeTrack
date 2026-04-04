@@ -86,11 +86,11 @@ export default function ActivityHeatmap() {
                   <div
                     key={dIdx}
                     className={`w-3 h-3 rounded-sm ${getColor(day.count)}
-                    hover:scale-110 transition-all duration-150 relative group`}
+                    hover:scale-110 transition-all duration-150 relative group cursor-pointer`}
                   >
                     {/* Tooltip */}
-                    <div className="absolute z-20 hidden group-hover:block -top-10 left-1/2 -translate-x-1/2 bg-black text-xs text-white px-2 py-1 rounded whitespace-nowrap">
-                      {day.count} problems on {day.date}
+                    <div className="absolute z-[9999] hidden group-hover:block -top-12 left-1/2 -translate-x-1/2 bg-slate-900 dark:bg-slate-800 text-sm text-white px-3 py-2 rounded whitespace-nowrap shadow-lg border border-slate-700 pointer-events-none min-w-max">
+                      {day.count} {day.count === 1 ? 'problem' : 'problems'} on {day.date}
                     </div>
                   </div>
                 ))}

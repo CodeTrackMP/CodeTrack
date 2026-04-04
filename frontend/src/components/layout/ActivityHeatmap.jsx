@@ -89,7 +89,7 @@ export default function ActivityHeatmap() {
                     hover:scale-110 transition-all duration-150 relative group cursor-pointer`}
                   >
                     {/* Tooltip */}
-                    <div className="absolute z-[9999] hidden group-hover:block -top-12 left-1/2 -translate-x-1/2 bg-slate-900 dark:bg-slate-800 text-sm text-white px-3 py-2 rounded whitespace-nowrap shadow-lg border border-slate-700 pointer-events-none min-w-max">
+                    <div className="absolute z-9999 hidden group-hover:block -top-12 left-1/2 -translate-x-1/2 bg-slate-900 dark:bg-slate-800 text-sm text-white px-3 py-2 rounded whitespace-nowrap shadow-lg border border-slate-700 pointer-events-none min-w-max">
                       {day.count} {day.count === 1 ? 'problem' : 'problems'} on {day.date}
                     </div>
                   </div>

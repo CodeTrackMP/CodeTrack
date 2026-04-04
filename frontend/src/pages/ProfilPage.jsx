@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Pencil, LogOut, Trash2, Image } from "lucide-react";
 import Navbar from "../components/layout/Navbar";
+import Sidebar from "../components/layout/Sidebar";
 
 export default function ProfilePage() {
   const fileInputRef = useRef(null);
@@ -57,11 +58,14 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0b0f19] text-white">
-      <Navbar />
+    <div className="flex min-h-screen bg-slate-100 text-slate-900 dark:bg-[#05070d] dark:text-slate-100 transition-colors duration-300">
+      <Sidebar />
 
-      {/* MAIN CONTENT */}
-      <div className="max-w-4xl mx-auto py-8 px-6 space-y-6 w-full">
+      <div className="flex flex-col flex-1 bg-slate-50 dark:bg-[#0b0f19] transition-colors duration-300">
+        <Navbar />
+
+        {/* MAIN CONTENT */}
+        <div className="max-w-4xl mx-auto py-8 px-6 space-y-6 w-full text-white">
 
         {/* SECTION 1 - PROFILE */}
         <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
@@ -315,6 +319,7 @@ export default function ProfilePage() {
           </div>
         </div>
 
+        </div>
       </div>
     </div>
   );

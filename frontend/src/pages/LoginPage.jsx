@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { motion as Motion, AnimatePresence } from "framer-motion";
 import { CodeXml } from "lucide-react";
 import useAuthActions from "@/features/auth/hooks/useAuthActions";
 
@@ -20,8 +19,6 @@ export default function LoginPage() {
     const savedTheme = localStorage.getItem("theme");
     return savedTheme || "dark";
   });
-  const navigate = useNavigate();
-
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
     localStorage.setItem("theme", theme);
@@ -53,6 +50,7 @@ const handleSubmit = (e) => {
     handleSignup(signupForm);
   } else {
     handleLogin({
+      username: loginForm.username,
       email: loginForm.email,
       password: loginForm.password,
     });
@@ -129,7 +127,7 @@ const handleSubmit = (e) => {
             <AnimatePresence mode="wait" custom={direction}>
 
               {!isSignup ? (
-                <motion.form
+                <Motion.form
                   key="login"
                   onSubmit={handleSubmit}
                   custom={direction}
@@ -196,13 +194,18 @@ const handleSubmit = (e) => {
 
                   <button
                     type="submit"
+                    disabled={loading}
                     className="w-full bg-blue-600 hover:bg-blue-500 transition-colors text-white font-semibold py-3 rounded-xl shadow-sm"
                   >
-                    Login
+                    {loading ? "Logging in..." : "Login"}
                   </button>
-                </motion.form>
+
+                  {error && (
+                    <p className="text-sm text-red-500 dark:text-red-400">{error}</p>
+                  )}
+                </Motion.form>
               ) : (
-                <motion.form
+                <Motion.form
                   key="signup"
                   onSubmit={handleSubmit}
                   custom={direction}
@@ -267,11 +270,16 @@ const handleSubmit = (e) => {
 
                   <button
                     type="submit"
+                    disabled={loading}
                     className="w-full bg-blue-600 hover:bg-blue-500 transition-colors text-white font-semibold py-3 rounded-xl shadow-sm"
                   >
-                    Register Now
+                    {loading ? "Creating account..." : "Register Now"}
                   </button>
-                </motion.form>
+
+                  {error && (
+                    <p className="text-sm text-red-500 dark:text-red-400">{error}</p>
+                  )}
+                </Motion.form>
               )}
 
             </AnimatePresence>
@@ -286,7 +294,7 @@ const handleSubmit = (e) => {
         <div className="absolute w-72 h-72 bg-blue-500 rounded-full blur-3xl opacity-20 top-10 right-20"></div>
         <div className="absolute w-96 h-96 bg-linear-to-br from-slate-400 to-blue-300 dark:from-blue-900 dark:to-slate-800 rounded-full blur-3xl opacity-25 dark:opacity-30 bottom-10 left-10 transition-colors duration-300"></div>
 
-        <motion.img
+        <Motion.img
           src="https://images.unsplash.com/photo-1551288049-bebda4e38f71"
           alt="dashboard preview"
           className="w-full h-full object-cover rounded-2xl relative z-10"

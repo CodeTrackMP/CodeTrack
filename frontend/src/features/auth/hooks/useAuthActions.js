@@ -21,7 +21,11 @@ export default function useAuthActions() {
 
       navigate("/dashboard");
     } catch (err) {
-      setError(err.response?.data?.message || "Login failed");
+      setError(
+        err.response?.data?.message ||
+          err.message ||
+          "Login failed"
+      );
     } finally {
       setLoading(false);
     }
@@ -38,7 +42,11 @@ export default function useAuthActions() {
 
       navigate("/dashboard");
     } catch (err) {
-      setError(err.response?.data?.message || "Signup failed");
+      setError(
+        err.response?.data?.message ||
+          err.message ||
+          "Signup failed"
+      );
     } finally {
       setLoading(false);
     }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { CodeXml } from "lucide-react";
+import useAuthActions from "@/features/auth/hooks/useAuthActions";
 
 export default function LoginPage() {
   const [isSignup, setIsSignup] = useState(false);
@@ -44,18 +45,19 @@ export default function LoginPage() {
   const direction = isSignup ? 1 : -1;
 
   // ✅ Handle submit (Login / Signup)
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const { handleLogin, handleSignup, loading, error } = useAuthActions();
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-    const enteredUsername = isSignup
-      ? signupForm.username.trim()
-      : loginForm.username.trim();
-    if (enteredUsername) {
-      localStorage.setItem("username", enteredUsername);
-    }
-
-    navigate("/connection");
-  };
+  if (isSignup) {
+    handleSignup(signupForm);
+  } else {
+    handleLogin({
+      email: loginForm.email,
+      password: loginForm.password,
+    });
+  }
+};
 
   const handleThemeToggle = () => {
     setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));

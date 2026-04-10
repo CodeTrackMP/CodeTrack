@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/layout/Sidebar";
 import Navbar from "../components/layout/Navbar";
-import { Bell, Check, X, Plus, Clock, Flame, Sword, HelpCircle } from "lucide-react";
+import { Bell, Check, X, Plus, Clock, Flame, Sword } from "lucide-react";
 
 const motivationalMessages = [
   "Keep pushing forward! Every problem solved brings you closer to mastery.",
@@ -20,7 +20,8 @@ const formatDueDate = (dateString) => {
 const createDummyReminder = () => ({
   id: 1,
   task: "Streak",
-  dueDate: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
+  dueDate: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+  streakType: ["LeetCode"]
 });
 
 export default function Reminders() {
@@ -33,7 +34,8 @@ export default function Reminders() {
   const [showAddForm, setShowAddForm] = useState(false);
   const [formData, setFormData] = useState({
     task: "Streak",
-    dueDate: ""
+    dueDate: "",
+    streakType: []
   });
   const [notification, setNotification] = useState(null);
   const [formError, setFormError] = useState("");
@@ -121,11 +123,12 @@ export default function Reminders() {
     const newReminder = {
       id: Date.now(),
       task: formData.task,
-      dueDate: dueDate.toISOString()
+      dueDate: dueDate.toISOString(),
+      ...(formData.task === "Streak" && { streakType: formData.streakType })
     };
 
     setReminders((prev) => [...prev, newReminder]);
-    setFormData({ task: "Streak", dueDate: "" });
+    setFormData({ task: "Streak", dueDate: "", streakType: [] });
     setFormError("");
     setShowAddForm(false);
   };
@@ -146,7 +149,6 @@ export default function Reminders() {
     switch (task) {
       case "Streak": return <Flame size={16} className="text-orange-500" />;
       case "Battle": return <Sword size={16} className="text-blue-500" />;
-      case "Question": return <HelpCircle size={16} className="text-green-500" />;
       default: return <Clock size={16} className="text-slate-500" />;
     }
   };
@@ -186,14 +188,55 @@ export default function Reminders() {
                   </label>
                   <select
                     value={formData.task}
-                    onChange={(e) => setFormData({...formData, task: e.target.value})}
-                    className="w-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg px-3 py-2 text-sm"
+                    onChange={(e) => {
+                      const newTask = e.target.value;
+                      setFormData({...formData, task: newTask, streakType: newTask === "Streak" ? formData.streakType : []});
+                    }}
+                    className="w-full bg-zinc-900 text-white border border-white/10 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500"
                   >
-                    <option value="Streak">Streak 🔥</option>
-                    <option value="Battle">Battle ⚔️</option>
-                    <option value="Question">Question ❓</option>
+                    <option value="Streak">Streak</option>
+                    <option value="Battle">Battle</option>
                   </select>
                 </div>
+                {formData.task === "Streak" && (
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">
+                      Streak Type
+                    </label>
+                    <div className="space-y-2">
+                      <label className="flex items-center text-slate-700 dark:text-gray-300">
+                        <input
+                          type="checkbox"
+                          checked={formData.streakType.includes("LeetCode")}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setFormData({...formData, streakType: [...formData.streakType, "LeetCode"]});
+                            } else {
+                              setFormData({...formData, streakType: formData.streakType.filter(t => t !== "LeetCode")});
+                            }
+                          }}
+                          className="mr-2"
+                        />
+                        LeetCode
+                      </label>
+                      <label className="flex items-center text-slate-700 dark:text-gray-300">
+                        <input
+                          type="checkbox"
+                          checked={formData.streakType.includes("Codeforces")}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setFormData({...formData, streakType: [...formData.streakType, "Codeforces"]});
+                            } else {
+                              setFormData({...formData, streakType: formData.streakType.filter(t => t !== "Codeforces")});
+                            }
+                          }}
+                          className="mr-2"
+                        />
+                        Codeforces
+                      </label>
+                    </div>
+                  </div>
+                )}
                 <div className="mb-4">
                   <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">
                     Due Date & Time
@@ -239,7 +282,7 @@ export default function Reminders() {
                       {getTaskIcon(reminder.task)}
                       <div>
                         <p className="text-sm font-medium text-slate-900 dark:text-white">
-                          {reminder.task}
+                          {reminder.task}{reminder.streakType ? ` (${reminder.streakType.join(", ")})` : ""}
                         </p>
                         <p className="text-xs text-slate-500 dark:text-gray-500">
                           Due: {formatDueDate(reminder.dueDate)}
@@ -280,7 +323,7 @@ export default function Reminders() {
               <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Reminder</h3>
             </div>
             <p className="text-slate-600 dark:text-gray-300 mb-4">
-              Time to focus on your {notification.task.toLowerCase()}! Keep up the great work.
+              Time to focus on your {notification.task.toLowerCase()}{notification.streakType ? ` (${notification.streakType.join(", ")})` : ""}! Keep up the great work.
             </p>
             <p className="text-slate-500 dark:text-gray-400 text-sm italic mb-6">
               {notification.message}

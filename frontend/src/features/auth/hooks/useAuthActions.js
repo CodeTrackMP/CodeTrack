@@ -10,26 +10,33 @@ export default function useAuthActions() {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = async (data) => {
-    try {
-      setLoading(true);
-      setError("");
+const handleLogin = async (data) => {
+  try {
+    setLoading(true);
+    setError("");
 
-      const res = await loginUser(data);
+    // 🔥 FAKE LOGIN (no backend needed)
+    const fakeUser = {
+      id: 1,
+      username: data.email || "tanvi",
+      email: data.email,
+      role: "STUDENT",
+    };
 
-      login(res.data.user, res.data.token);
+    const fakeToken = "mock-jwt-token";
 
-      navigate("/dashboard");
-    } catch (err) {
-      setError(
-        err.response?.data?.message ||
-          err.message ||
-          "Login failed"
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
+    // store in auth context
+    login(fakeUser, fakeToken);
+
+    // redirect
+    navigate("/dashboard");
+
+  } catch (err) {
+    setError("Login failed");
+  } finally {
+    setLoading(false);
+  }
+};
 
   const handleSignup = async (data) => {
     try {

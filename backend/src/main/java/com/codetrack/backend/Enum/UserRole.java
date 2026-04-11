@@ -1,5 +1,4 @@
-package com.codetrack.backend.enums;
-
+package com.codetrack.backend.Enum;
 public enum UserRole {
     STUDENT, ADMIN
 }

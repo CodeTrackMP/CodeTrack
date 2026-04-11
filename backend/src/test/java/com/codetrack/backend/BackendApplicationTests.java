@@ -1,4 +1,4 @@
-package com.codetrack;
+package com.codetrack.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package com.codetrack;
+package com.codetrack.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

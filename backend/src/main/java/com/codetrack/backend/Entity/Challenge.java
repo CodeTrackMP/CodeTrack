@@ -1,6 +1,6 @@
-package com.codetrack.backend.entity;
+package com.codetrack.backend.Entity;
 
-import com.codetrack.backend.enums.ChallengeStatus;
+import com.codetrack.backend.Enum.ChallengeStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.math.BigDecimal;

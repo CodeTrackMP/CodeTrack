@@ -1,5 +1,5 @@
-package com.codetrack.entity;
-
+package com.codetrack.backend.Entity;
+import com.codetrack.backend.Enum.*;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

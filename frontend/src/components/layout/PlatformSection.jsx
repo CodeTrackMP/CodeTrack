@@ -16,7 +16,7 @@ export default function PlatformSection() {
     },
     {
       name: "Codeforces",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/5/5c/Codeforces_logo.svg",
+      logo: 'https://cdn.iconscout.com/icon/free/png-512/free-code-forces-logo-icon-svg-download-png-2944796.png?f=webp&w=512',
       color: "blue",
       solved: 180,
       streak: 250,
@@ -39,7 +39,7 @@ export default function PlatformSection() {
     };
 
     return (
-      <div className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl p-6 shadow-lg transition-colors duration-300">
+      <div className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl p-6 shadow-sm dark:shadow-none transition-colors duration-300">
 
         {/* HEADER */}
         <div className="flex items-center justify-between mb-6">

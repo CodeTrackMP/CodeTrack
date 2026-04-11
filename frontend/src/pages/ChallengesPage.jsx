@@ -40,10 +40,10 @@ export default function ChallengesPage() {
       <div className="flex flex-col flex-1 bg-slate-50 dark:bg-[#0b0f19] transition-colors duration-300">
         <Navbar />
 
-        <div className="flex flex-1 text-white">
+        <div className="flex flex-1 text-slate-900 dark:text-white">
 
           {/* LEFT */}
-          <div className="w-[30%] border-r border-white/10 overflow-y-auto">
+          <div className="w-[30%] border-r border-slate-200 dark:border-white/10 overflow-y-auto">
             <div className="p-4 flex justify-between items-center">
               <h2 className="font-semibold">Challenges</h2>
               <button
@@ -66,7 +66,7 @@ export default function ChallengesPage() {
             {selectedChallenge ? (
               <ChallengeDetails challenge={selectedChallenge} />
             ) : (
-              <div className="text-gray-400">Select a challenge</div>
+              <div className="text-slate-500 dark:text-gray-400">Select a challenge</div>
             )}
           </div>
         </div>

@@ -65,15 +65,15 @@ export default function ProfilePage() {
         <Navbar />
 
         {/* MAIN CONTENT */}
-        <div className="max-w-4xl mx-auto py-8 px-6 space-y-6 w-full text-white">
+        <div className="max-w-4xl mx-auto py-8 px-6 space-y-6 w-full text-slate-900 dark:text-white">
 
         {/* SECTION 1 - PROFILE */}
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <div className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl p-6 shadow-sm dark:shadow-none">
           <h2 className="text-lg font-semibold mb-4">Profile Info</h2>
 
           <div className="flex items-center gap-6 mb-6">
             <div className="relative">
-              <p className="text-[11px] uppercase tracking-wider text-blue-300 mb-2">Profile Picture</p>
+              <p className="text-[11px] uppercase tracking-wider text-blue-600 dark:text-blue-300 mb-2">Profile Picture</p>
               {avatarUrl ? (
                 <img
                   src={avatarUrl}
@@ -81,7 +81,7 @@ export default function ProfilePage() {
                   className="w-20 h-20 rounded-full object-cover"
                 />
               ) : (
-                <div className="w-20 h-20 rounded-full bg-white/10 border border-white/15 flex items-center justify-center">
+                <div className="w-20 h-20 rounded-full bg-slate-100 dark:bg-white/10 border border-slate-200 dark:border-white/15 flex items-center justify-center">
                   <Image size={22} className="text-blue-300" />
                 </div>
               )}
@@ -102,14 +102,14 @@ export default function ProfilePage() {
             </div>
 
             <div>
-              <p className="text-sm text-gray-400">Username</p>
+              <p className="text-sm text-slate-500 dark:text-gray-400">Username</p>
               <p className="font-medium">{username}</p>
             </div>
           </div>
 
           <div className="space-y-4">
             <div>
-              <label htmlFor="fullName" className="block text-[11px] uppercase tracking-wider text-blue-300 mb-1.5">
+              <label htmlFor="fullName" className="block text-[11px] uppercase tracking-wider text-blue-600 dark:text-blue-300 mb-1.5">
                 Full Name
               </label>
               <input
@@ -117,13 +117,13 @@ export default function ProfilePage() {
                 type="text"
                 value={profile.name}
                 onChange={(e) => handleProfileChange("name", e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
                 placeholder="Full Name"
               />
             </div>
 
             <div>
-              <label htmlFor="bio" className="block text-[11px] uppercase tracking-wider text-blue-300 mb-1.5">
+              <label htmlFor="bio" className="block text-[11px] uppercase tracking-wider text-blue-600 dark:text-blue-300 mb-1.5">
                 Bio
               </label>
               <textarea
@@ -131,13 +131,13 @@ export default function ProfilePage() {
                 rows={2}
                 value={profile.bio}
                 onChange={(e) => handleProfileChange("bio", e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
                 placeholder="Write a short bio about yourself"
               />
             </div>
 
             <div>
-              <label htmlFor="birthday" className="block text-[11px] uppercase tracking-wider text-blue-300 mb-1.5">
+              <label htmlFor="birthday" className="block text-[11px] uppercase tracking-wider text-blue-600 dark:text-blue-300 mb-1.5">
                 Birthday
               </label>
               <input
@@ -145,14 +145,14 @@ export default function ProfilePage() {
                 type="date"
                 value={profile.birthday}
                 onChange={(e) => handleProfileChange("birthday", e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500"
               />
             </div>
           </div>
         </div>
 
         {/* SECTION 2 - PLATFORMS */}
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <div className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl p-6 shadow-sm dark:shadow-none">
           <h2 className="text-lg font-semibold mb-4">
             Connected Platforms
           </h2>
@@ -160,13 +160,13 @@ export default function ProfilePage() {
           <div className="space-y-3">
 
             {/* Codeforces */}
-            <div className="flex justify-between items-center bg-white/5 rounded-lg px-4 py-3 hover:bg-white/10 transition-all duration-200">
+            <div className="flex justify-between items-center bg-slate-50 dark:bg-white/5 rounded-lg px-4 py-3 hover:bg-slate-100 dark:hover:bg-white/10 transition-all duration-200">
               <span>Codeforces</span>
 
               <div className="flex items-center gap-3">
                 {editing.codeforces ? (
                   <div>
-                    <label htmlFor="codeforcesHandle" className="block text-[10px] uppercase tracking-wider text-blue-300 mb-1">
+                    <label htmlFor="codeforcesHandle" className="block text-[10px] uppercase tracking-wider text-blue-600 dark:text-blue-300 mb-1">
                       Handle
                     </label>
                     <input
@@ -175,11 +175,11 @@ export default function ProfilePage() {
                       onChange={(e) =>
                         handlePlatformChange("codeforces", e.target.value)
                       }
-                      className="bg-white/5 border border-white/10 rounded px-2 py-1 text-sm"
+                      className="bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded px-2 py-1 text-sm"
                     />
                   </div>
                 ) : (
-                  <span className="text-gray-400">
+                  <span className="text-slate-500 dark:text-gray-400">
                     {platforms.codeforces || "Not connected"}
                   </span>
                 )}
@@ -205,13 +205,13 @@ export default function ProfilePage() {
             </div>
 
             {/* LeetCode */}
-            <div className="flex justify-between items-center bg-white/5 rounded-lg px-4 py-3 hover:bg-white/10 transition-all duration-200">
+            <div className="flex justify-between items-center bg-slate-50 dark:bg-white/5 rounded-lg px-4 py-3 hover:bg-slate-100 dark:hover:bg-white/10 transition-all duration-200">
               <span>LeetCode</span>
 
               <div className="flex items-center gap-3">
                 {editing.leetcode ? (
                   <div>
-                    <label htmlFor="leetcodeHandle" className="block text-[10px] uppercase tracking-wider text-blue-300 mb-1">
+                    <label htmlFor="leetcodeHandle" className="block text-[10px] uppercase tracking-wider text-blue-600 dark:text-blue-300 mb-1">
                       Username
                     </label>
                     <input
@@ -220,11 +220,11 @@ export default function ProfilePage() {
                       onChange={(e) =>
                         handlePlatformChange("leetcode", e.target.value)
                       }
-                      className="bg-white/5 border border-white/10 rounded px-2 py-1 text-sm"
+                      className="bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded px-2 py-1 text-sm"
                     />
                   </div>
                 ) : (
-                  <span className="text-gray-400">
+                  <span className="text-slate-500 dark:text-gray-400">
                     {platforms.leetcode || "Not connected"}
                   </span>
                 )}
@@ -253,7 +253,7 @@ export default function ProfilePage() {
         </div>
 
         {/* SECTION 3 - SETTINGS */}
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <div className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl p-6 shadow-sm dark:shadow-none">
           <h2 className="text-lg font-semibold mb-4">
             Account Settings
           </h2>
@@ -264,7 +264,7 @@ export default function ProfilePage() {
             <div>
               <button
                 onClick={() => setPasswordOpen(!passwordOpen)}
-                className="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-all duration-200"
+                className="bg-slate-200 hover:bg-slate-300 dark:bg-white/10 dark:hover:bg-white/20 px-4 py-2 rounded-lg transition-all duration-200"
               >
                 Change Password
               </button>
@@ -272,25 +272,25 @@ export default function ProfilePage() {
               {passwordOpen && (
                 <div className="mt-3 space-y-2">
                   <div>
-                    <label htmlFor="currentPassword" className="block text-[11px] uppercase tracking-wider text-blue-300 mb-1.5">
+                    <label htmlFor="currentPassword" className="block text-[11px] uppercase tracking-wider text-blue-600 dark:text-blue-300 mb-1.5">
                       Current Password
                     </label>
                     <input
                       id="currentPassword"
                       type="password"
                       placeholder="Current Password"
-                      className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2"
+                      className="w-full bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-lg px-4 py-2"
                     />
                   </div>
                   <div>
-                    <label htmlFor="newPassword" className="block text-[11px] uppercase tracking-wider text-blue-300 mb-1.5">
+                    <label htmlFor="newPassword" className="block text-[11px] uppercase tracking-wider text-blue-600 dark:text-blue-300 mb-1.5">
                       New Password
                     </label>
                     <input
                       id="newPassword"
                       type="password"
                       placeholder="New Password"
-                      className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2"
+                      className="w-full bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 rounded-lg px-4 py-2"
                     />
                   </div>
                 </div>
@@ -298,7 +298,7 @@ export default function ProfilePage() {
             </div>
 
             {/* Logout */}
-            <button className="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition-all duration-200">
+            <button className="flex items-center gap-2 bg-slate-200 hover:bg-slate-300 dark:bg-white/10 dark:hover:bg-white/20 px-4 py-2 rounded-lg transition-all duration-200">
               <LogOut size={16} />
               Logout
             </button>

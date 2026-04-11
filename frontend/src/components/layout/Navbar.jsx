@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Search, Bell, Sun, Moon, Image } from "lucide-react";
+import { useTheme } from "@/features/theme/context/ThemeContext";
 
 export default function Navbar() {
-    const [isDark, setIsDark] = useState(() => {
-        const saved = localStorage.getItem("theme");
-        if (saved) return saved === "dark";
-        return document.documentElement.classList.contains("dark");
-    });
+    const { isDark, toggleTheme } = useTheme();
     const [displayName, setDisplayName] = useState(() => {
         const savedName = localStorage.getItem("username");
         return savedName || "User";
@@ -14,11 +11,6 @@ export default function Navbar() {
     const [avatarUrl, setAvatarUrl] = useState(() => {
         return localStorage.getItem("profileAvatar") || "";
     });
-
-    useEffect(() => {
-        document.documentElement.classList.toggle("dark", isDark);
-        localStorage.setItem("theme", isDark ? "dark" : "light");
-    }, [isDark]);
 
     useEffect(() => {
         const savedName = localStorage.getItem("username");
@@ -29,10 +21,6 @@ export default function Navbar() {
         const savedAvatar = localStorage.getItem("profileAvatar") || "";
         setAvatarUrl(savedAvatar);
     }, []);
-
-    const handleThemeToggle = () => {
-        setIsDark((prev) => !prev);
-    };
 
     return (
         <div className="sticky top-0 z-50 h-16 w-full bg-slate-50/85 dark:bg-[#0b0f19]/80 backdrop-blur-md border-b border-slate-200 dark:border-white/10 px-6 flex items-center justify-between transition-colors duration-300">
@@ -54,7 +42,7 @@ export default function Navbar() {
             <div className="flex items-center gap-4 ml-6">
                 {/* Theme Toggle */}
                 <button
-                    onClick={handleThemeToggle}
+                    onClick={toggleTheme}
                     aria-label="Toggle theme"
                     className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-white/10 transition-all duration-200 text-slate-600 dark:text-gray-300"
                 >

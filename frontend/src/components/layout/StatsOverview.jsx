@@ -41,8 +41,8 @@ export default function StatsOverview() {
         return (
           <div
             key={index}
-            className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl p-5 shadow-sm
-            hover:bg-slate-100 dark:hover:bg-white/10 hover:-translate-y-1 transition-all duration-200"
+            className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl p-5 shadow-sm dark:shadow-none
+            hover:bg-slate-100 dark:hover:bg-white/10 "
           >
             {/* Top Row */}
             <div className="flex items-center justify-between mb-4">

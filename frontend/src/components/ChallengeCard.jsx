@@ -10,10 +10,10 @@ export default function ChallengeCard({ challenge, active, onClick }) {
     <div
       onClick={onClick}
       className={`p-4 rounded-xl cursor-pointer transition-all border
-      ${active ? "bg-blue-500/20 border-blue-500" : "bg-white/5 border-white/10 hover:bg-white/10"}`}
+      ${active ? "bg-blue-100 dark:bg-blue-500/20 border-blue-500" : "bg-white dark:bg-white/5 border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-white/10"}`}
     >
       <h3 className="font-medium">{challenge.title}</h3>
-      <p className="text-xs text-gray-400">
+      <p className="text-xs text-slate-500 dark:text-gray-400">
         {challenge.starts_at} → {challenge.ends_at}
       </p>
       <span className={`text-xs px-2 py-1 rounded ${statusColors[challenge.status]}`}>

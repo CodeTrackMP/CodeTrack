@@ -7,9 +7,9 @@ export default function ChallengeDetails({ challenge }) {
   return (
     <div className="space-y-6">
 
-      <div className="bg-white/5 p-5 rounded-2xl border border-white/10">
+      <div className="bg-white dark:bg-white/5 p-5 rounded-2xl border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none transition-colors duration-300">
         <h2 className="text-xl font-semibold">{challenge.title}</h2>
-        <p className="text-gray-400">{challenge.description}</p>
+        <p className="text-slate-500 dark:text-gray-400">{challenge.description}</p>
       </div>
 
       <InviteUserInput />

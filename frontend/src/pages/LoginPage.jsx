@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { motion as Motion, AnimatePresence } from "framer-motion";
 import { CodeXml } from "lucide-react";
 import useAuthActions from "@/features/auth/hooks/useAuthActions";
+import { useTheme } from "@/features/theme/context/ThemeContext";
 
 export default function LoginPage() {
+  const { theme, toggleTheme } = useTheme();
   const [isSignup, setIsSignup] = useState(false);
   const [loginForm, setLoginForm] = useState({
     username: "",
@@ -15,14 +17,6 @@ export default function LoginPage() {
     email: "",
     password: ""
   });
-  const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem("theme");
-    return savedTheme || "dark";
-  });
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
-    localStorage.setItem("theme", theme);
-  }, [theme]);
 
   const slideVariants = {
     initial: (direction) => ({
@@ -57,10 +51,6 @@ const handleSubmit = (e) => {
   }
 };
 
-  const handleThemeToggle = () => {
-    setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
-  };
-
   const handleLoginChange = (field, value) => {
     setLoginForm((prev) => ({ ...prev, [field]: value }));
   };
@@ -74,7 +64,7 @@ const handleSubmit = (e) => {
 
       <button
         type="button"
-        onClick={handleThemeToggle}
+        onClick={toggleTheme}
         aria-label="Toggle theme"
         className="absolute right-4 top-4 z-20 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-700 shadow-sm transition-colors hover:bg-slate-100 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:bg-white/10"
       >

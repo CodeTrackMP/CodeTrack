@@ -5,6 +5,7 @@ import Reminders from "./pages/Reminders";
 import ConnectionPage from "./pages/ConnectionPage";
 import ProfilePage from "./pages/ProfilPage";
 import ChallengesPage from "./pages/ChallengesPage";
+import Settings from "./pages/Settings";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 
@@ -60,6 +61,14 @@ export default function App() {
               <ChallengesPage />
             </ProtectedRoute>
           }
+          />
+          <Route 
+          path="/settings" 
+          element={
+            <ProtectedRoute>
+          <Settings />
+          </ProtectedRoute>
+          } 
         />
       </Routes>
     </Router>

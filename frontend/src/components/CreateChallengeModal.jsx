@@ -14,34 +14,34 @@ export default function CreateChallengeModal({ onClose, onCreate }) {
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-      <div className="bg-[#0b0f19] p-6 rounded-2xl w-100 border border-white/10">
+      <div className="bg-white dark:bg-[#0b0f19] text-slate-900 dark:text-slate-100 p-6 rounded-2xl w-100 border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-none">
         <h2 className="mb-4">Create Challenge</h2>
 
         <input
           placeholder="Title"
-          className="w-full mb-2 bg-white/5 p-2 rounded"
+          className="w-full mb-2 bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           onChange={(e) => setForm({ ...form, title: e.target.value })}
         />
 
         <textarea
           placeholder="Description"
-          className="w-full mb-2 bg-white/5 p-2 rounded"
+          className="w-full mb-2 bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           onChange={(e) => setForm({ ...form, description: e.target.value })}
         />
 
-        <input type="datetime-local" className="w-full mb-2 bg-white/5 p-2 rounded"
+        <input type="datetime-local" className="w-full mb-2 bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           onChange={(e) => setForm({ ...form, start: e.target.value })} />
 
-        <input type="datetime-local" className="w-full mb-2 bg-white/5 p-2 rounded"
+        <input type="datetime-local" className="w-full mb-2 bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           onChange={(e) => setForm({ ...form, end: e.target.value })} />
 
         <div className="flex gap-2 mb-2">
           <input type="number" value={form.problems}
             onChange={(e) => setForm({ ...form, problems: +e.target.value })}
-            className="w-1/2 bg-white/5 p-2 rounded" />
+            className="w-1/2 bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
           <input type="number" value={form.time}
             onChange={(e) => setForm({ ...form, time: +e.target.value })}
-            className="w-1/2 bg-white/5 p-2 rounded" />
+            className="w-1/2 bg-slate-50 dark:bg-white/5 border border-slate-300 dark:border-white/10 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
 
         {!valid && <p className="text-red-400 text-sm">Must total 100</p>}

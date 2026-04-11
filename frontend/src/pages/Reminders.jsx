@@ -25,11 +25,6 @@ const createDummyReminder = () => ({
 });
 
 export default function Reminders() {
-  const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem("theme");
-    return savedTheme || "dark";
-  });
-
   const [reminders, setReminders] = useState([]);
   const [showAddForm, setShowAddForm] = useState(false);
   const [formData, setFormData] = useState({
@@ -39,15 +34,6 @@ export default function Reminders() {
   });
   const [notification, setNotification] = useState(null);
   const [formError, setFormError] = useState("");
-
-  useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  const handleThemeToggle = () => {
-    setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
-  };
 
   // Load reminders from localStorage
   useEffect(() => {
@@ -160,12 +146,12 @@ export default function Reminders() {
 
       <div className="flex flex-col flex-1 bg-slate-50 dark:bg-[#0b0f19] transition-colors duration-300">
 
-        <Navbar theme={theme} onThemeToggle={handleThemeToggle} />
+        <Navbar />
 
         <div className="p-6">
           <h1 className="mt-6 text-slate-900 dark:text-white mb-6">Reminders</h1>
 
-          <div className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl p-5 shadow-sm hover:bg-slate-100 dark:hover:bg-white/10 transition-all duration-200">
+          <div className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl p-5 shadow-sm dark:shadow-none hover:bg-slate-100 dark:hover:bg-white/10 transition-all duration-200">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-slate-900 dark:text-white flex items-center gap-2">
                 <Bell size={20} className="text-blue-500" />
@@ -186,17 +172,20 @@ export default function Reminders() {
                   <label className="block text-sm font-medium text-slate-700 dark:text-gray-300 mb-1">
                     Task Type
                   </label>
-                  <select
-                    value={formData.task}
-                    onChange={(e) => {
-                      const newTask = e.target.value;
-                      setFormData({...formData, task: newTask, streakType: newTask === "Streak" ? formData.streakType : []});
-                    }}
-                    className="w-full bg-zinc-900 text-white border border-white/10 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500"
-                  >
-                    <option value="Streak">Streak</option>
-                    <option value="Battle">Battle</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      value={formData.task}
+                      onChange={(e) => {
+                        const newTask = e.target.value;
+                        setFormData({...formData, task: newTask, streakType: newTask === "Streak" ? formData.streakType : []});
+                      }}
+                      className="w-full bg-[#020617] text-white border border-white/10 rounded-lg px-3 pr-10 py-2 text-sm appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                      <option value="Streak" className="bg-[#020617] text-white">Streak</option>
+                      <option value="Battle" className="bg-[#020617] text-white">Battle</option>
+                    </select>
+                    <span className="pointer-events-none text-white/70 absolute right-3 top-1/2 -translate-y-1/2">▼</span>
+                  </div>
                 </div>
                 {formData.task === "Streak" && (
                   <div className="mb-4">
@@ -215,7 +204,7 @@ export default function Reminders() {
                               setFormData({...formData, streakType: formData.streakType.filter(t => t !== "LeetCode")});
                             }
                           }}
-                          className="mr-2"
+                          className="mr-2 accent-blue-500"
                         />
                         LeetCode
                       </label>
@@ -230,7 +219,7 @@ export default function Reminders() {
                               setFormData({...formData, streakType: formData.streakType.filter(t => t !== "Codeforces")});
                             }
                           }}
-                          className="mr-2"
+                          className="mr-2 accent-blue-500"
                         />
                         Codeforces
                       </label>
@@ -248,7 +237,7 @@ export default function Reminders() {
                       setFormData({...formData, dueDate: e.target.value});
                       if (formError) setFormError("");
                     }}
-                    className="w-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-lg px-3 py-2 text-sm"
+                    className="w-full bg-white dark:bg-white/5 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-white/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
                 {formError && (

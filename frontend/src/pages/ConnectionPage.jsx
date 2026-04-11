@@ -96,18 +96,18 @@ export default function ConnectionPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#0b0f19] px-4">
+    <div className="min-h-screen flex items-center justify-center bg-slate-100 dark:bg-[#0b0f19] text-slate-900 dark:text-slate-100 px-4 transition-colors duration-300">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-lg bg-white/5 border border-white/10 rounded-2xl p-6 shadow-lg"
+        className="w-full max-w-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl p-6 shadow-sm dark:shadow-none"
       >
 
         {/* Header */}
         <div className="mb-6">
-          <h2 className="text-xl font-semibold text-white">
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-white">
             Connect Your Platforms
           </h2>
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-slate-500 dark:text-gray-400">
             Link your accounts to track your progress
           </p>
         </div>
@@ -128,20 +128,20 @@ export default function ConnectionPage() {
                   className={`w-full flex items-center justify-between px-4 py-3 rounded-xl border transition-all duration-200
                   ${
                     selected[platform]
-                      ? "border-blue-500 bg-blue-500/10"
-                      : "border-white/10 bg-white/5 hover:bg-white/10"
+                      ? "border-blue-500 bg-blue-100 dark:bg-blue-500/10"
+                      : "border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10"
                   }
                   ${isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
                 >
-                  <span className="text-white font-medium">{cfg.label}</span>
-                  <span className="text-sm text-gray-400">{cfg.icon}</span>
+                  <span className="text-slate-900 dark:text-white font-medium">{cfg.label}</span>
+                  <span className="text-sm text-slate-500 dark:text-gray-400">{cfg.icon}</span>
                 </button>
 
                 {selected[platform] && (
                   <div className="mt-3">
                     <label
                       htmlFor={`${platform}-username`}
-                      className="block text-sm text-gray-300 mb-1"
+                      className="block text-sm text-slate-600 dark:text-gray-300 mb-1"
                     >
                       {cfg.label} Username
                     </label>
@@ -154,11 +154,11 @@ export default function ConnectionPage() {
                       aria-invalid={Boolean(fieldError)}
                       aria-describedby={`${platform}-help ${platform}-error`}
                       disabled={isSubmitting}
-                      className="w-full bg-white/5 border border-white/10 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full bg-white dark:bg-white/5 border border-slate-300 dark:border-white/10 text-slate-900 dark:text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                     <p
                       id={`${platform}-help`}
-                      className="mt-1 text-xs text-gray-400"
+                      className="mt-1 text-xs text-slate-500 dark:text-gray-400"
                     >
                       {cfg.helper}
                     </p>
@@ -178,7 +178,7 @@ export default function ConnectionPage() {
         </div>
 
         {!hasSelection && (
-          <p className="mb-4 text-sm text-amber-300">
+          <p className="mb-4 text-sm text-amber-600 dark:text-amber-300">
             Select at least one platform to continue.
           </p>
         )}

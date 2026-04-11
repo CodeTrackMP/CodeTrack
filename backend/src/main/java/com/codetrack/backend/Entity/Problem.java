@@ -7,6 +7,9 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 @Getter
 @Setter
 @Entity
@@ -33,9 +36,9 @@ public class Problem {
     private String title;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Difficulty difficulty = Difficulty.UNRATED;
-
+@Column(nullable = false, columnDefinition = "difficulty")
+@JdbcTypeCode(SqlTypes.NAMED_ENUM)
+private Difficulty difficulty = Difficulty.UNRATED;
     private Integer rating;
 
     @Column(length = 500)

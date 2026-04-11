@@ -1,10 +1,14 @@
 package com.codetrack.backend.Entity;
 
-import com.codetrack.backend.Enum.ChallengeStatus;
+import com.codetrack.backend.Enum.Difficulty;
+
 import jakarta.persistence.*;
 import lombok.Data;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "challenges")
@@ -26,8 +30,9 @@ public class Challenge {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private ChallengeStatus status = ChallengeStatus.DRAFT;
+@Column(nullable = false, columnDefinition = "difficulty")
+@JdbcTypeCode(SqlTypes.NAMED_ENUM)
+private Difficulty difficulty = Difficulty.UNRATED;
 
     @Column(name = "starts_at", nullable = false)
     private LocalDateTime startsAt;

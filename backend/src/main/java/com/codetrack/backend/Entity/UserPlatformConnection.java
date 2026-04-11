@@ -6,6 +6,9 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 @Getter
 @Setter
 @Entity
@@ -36,7 +39,8 @@ public class UserPlatformConnection {
     private Boolean isActive = true;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "sync_status", nullable = false)
+    @Column(name = "sync_status", nullable = false, columnDefinition = "sync_status")
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private SyncStatus syncStatus = SyncStatus.PENDING;
 
     @Column(name = "last_synced_at")

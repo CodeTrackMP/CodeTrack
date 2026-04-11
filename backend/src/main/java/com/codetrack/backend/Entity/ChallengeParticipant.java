@@ -6,6 +6,9 @@ import lombok.Data;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 @Entity
 @Table(name = "challenge_participants")
 @Data
@@ -24,8 +27,9 @@ public class ChallengeParticipant {
     private User user;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private ParticipantStatus status = ParticipantStatus.INVITED;
+@Column(nullable = false, columnDefinition = "participant_status")
+@JdbcTypeCode(SqlTypes.NAMED_ENUM)
+private ParticipantStatus status = ParticipantStatus.INVITED;
 
     @Column(name = "problems_solved", nullable = false)
     private Integer problemsSolved = 0;

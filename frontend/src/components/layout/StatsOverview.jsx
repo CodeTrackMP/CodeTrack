@@ -1,84 +1,61 @@
-import React from "react";
-import { Flame, Trophy, BarChart, CheckCircle, ArrowUpRight, ArrowDownRight } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Flame, Trophy, BarChart, CheckCircle } from "lucide-react";
+import { getStatsOverview } from "../../api/dashboardApi.js";
 
 export default function StatsOverview() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getStatsOverview()
+      .then(res => setData(res.data))
+      .catch(err => console.error(err))
+      .finally(() => setLoading(false));
+  }, []);
+
   const stats = [
     {
       title: "Total Problems Solved",
-      value: "1,248",
-      change: "+12%",
-      positive: true,
-      icon: CheckCircle
+      value: data?.totalSolved ?? "-",
+      icon: CheckCircle,
     },
     {
       title: "Current Streak",
-      value: "24 Days",
-      change: "+5%",
-      positive: true,
-      icon: Flame
+      value: data ? `${data.currentStreak} Days` : "-",
+      icon: Flame,
     },
     {
       title: "Ranking",
-      value: "#342",
-      change: "-3%",
-      positive: false,
-      icon: Trophy
+      value: data?.ranking ? `#${data.ranking}` : "-",
+      icon: Trophy,
     },
     {
       title: "Accuracy",
-      value: "92%",
-      change: "+2%",
-      positive: true,
-      icon: BarChart
-    }
+      value: data ? `${data.accuracy}%` : "-",
+      icon: BarChart,
+    },
   ];
+
+  if (loading) return <div className="text-slate-400">Loading stats...</div>;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-      {stats.map((stat, index) => {
-        const Icon = stat.icon;
-
-        return (
-          <div
-            key={index}
-            className="bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl p-5 shadow-sm dark:shadow-none
-            hover:bg-slate-100 dark:hover:bg-white/10 "
-          >
-            {/* Top Row */}
-            <div className="flex items-center justify-between mb-4">
-              <p className="text-sm text-slate-500 dark:text-gray-400">
-                {stat.title}
-              </p>
-
-              <div className="p-2 rounded-lg bg-slate-100 dark:bg-white/5">
-                <Icon size={18} className="text-slate-600 dark:text-gray-300" />
-              </div>
-            </div>
-
-            {/* Value */}
-            <h3 className="text-3xl font-semibold text-slate-900 dark:text-white mb-2">
-              {stat.value}
-            </h3>
-
-            {/* Change */}
-            <div className="flex items-center gap-1">
-              {stat.positive ? (
-                <ArrowUpRight size={16} className="text-green-400" />
-              ) : (
-                <ArrowDownRight size={16} className="text-red-400" />
-              )}
-
-              <span
-                className={`text-sm ${
-                  stat.positive ? "text-green-400" : "text-red-400"
-                }`}
-              >
-                {stat.change}
-              </span>
-            </div>
+      {stats.map((stat, index) => (
+        <div
+          key={index}
+          className="bg-white dark:bg-slate-800 rounded-xl p-5 shadow-sm"
+        >
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-slate-500 dark:text-slate-400 text-sm">
+              {stat.title}
+            </span>
+            <stat.icon size={18} className="text-slate-400" />
           </div>
-        );
-      })}
+          <div className="text-2xl font-bold text-slate-900 dark:text-white">
+            {stat.value}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

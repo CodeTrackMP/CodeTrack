@@ -1,16 +1,25 @@
 import React, { useState, useEffect } from "react";
 import Leaderboard from "../Leaderboard";
+import { getTopicActivity } from "../../api/dashboardApi";
 
 export default function TopActivity() {
-  const topics = [
-    { topic: "Arrays", count: 145, percent: 100 },
-    { topic: "Sorting", count: 98, percent: 70 },
-    { topic: "Strings", count: 120, percent: 85 },
-    { topic: "Trees", count: 75, percent: 55 },
-    { topic: "Graphs", count: 60, percent: 45 }
-  ];
-
+  const [topics, setTopics] = useState([]);
   const [leaderboardParticipants, setLeaderboardParticipants] = useState([]);
+
+  useEffect(() => {
+    getTopicActivity()
+      .then(res => {
+        const data = res.data;
+        const max = data.length > 0 ? data[0].count : 1;
+        const formatted = data.map(item => ({
+          topic: item.topic,
+          count: item.count,
+          percent: Math.round((item.count / max) * 100),
+        }));
+        setTopics(formatted);
+      })
+      .catch(err => console.error(err));
+  }, []);
 
   useEffect(() => {
     const saved = localStorage.getItem("challenges");

@@ -1,32 +1,47 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect, useState } from "react";
+import { getHeatmap } from "../../api/dashboardApi";
 
 export default function ActivityHeatmap() {
-  // Generate mock data (365 days)
+
+  const [apiData, setApiData] = useState([]);
+
+  useEffect(() => {
+    getHeatmap()
+      .then(res => setApiData(res.data))
+      .catch(err => console.error(err));
+  }, []);
+
   const data = useMemo(() => {
+    // Build a map of date -> count from API
+    const countMap = {};
+    apiData.forEach(entry => {
+      countMap[entry.date] = entry.count;
+    });
+
+    // Generate full 365 day grid, filling in real counts where available
     const days = [];
     const start = new Date("2026-01-01");
 
     for (let i = 0; i < 365; i++) {
       const date = new Date(start);
       date.setDate(start.getDate() + i);
-
+      const dateStr = date.toISOString().split("T")[0];
       days.push({
-        date: date.toISOString().split("T")[0],
-        count: Math.floor(Math.random() * 5) // 0–4 activity
+        date: dateStr,
+        count: countMap[dateStr] ?? 0,
       });
     }
 
     return days;
-  }, []);
+  }, [apiData]);
 
-  // Map count → color
   const getColor = (count) => {
     if (count === 0) return "bg-gray-700";
     if (count === 1) return "bg-green-900";
     if (count === 2) return "bg-green-700";
     if (count === 3) return "bg-green-500";
     return "bg-green-400";
-  };
+  };;
 
   // Group into weeks (columns)
   const weeks = [];

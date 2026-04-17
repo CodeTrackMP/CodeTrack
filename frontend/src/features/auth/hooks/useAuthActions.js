@@ -26,7 +26,7 @@ export default function useAuthActions() {
       };
 
       login(user, res.data.token);
-      navigate("/dashboard");
+      navigate("/connection");
 
     } catch (err) {
       setError(
@@ -48,7 +48,7 @@ export default function useAuthActions() {
 
       login(res.data.user, res.data.token);
 
-      navigate("/dashboard");
+      navigate("/connection");
     } catch (err) {
       setError(
         err.response?.data?.message ||
